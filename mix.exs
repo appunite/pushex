@@ -14,7 +14,11 @@ defmodule Pushex.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger]]
+    [
+      applications: [
+        :logger, :pigeon
+      ]
+    ]
   end
 
   # Dependencies can be Hex packages:
@@ -27,6 +31,8 @@ defmodule Pushex.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [
+      {:pigeon, "~> 0.7"}
+    ]
   end
 end
