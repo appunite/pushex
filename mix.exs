@@ -16,7 +16,7 @@ defmodule Pushex.Mixfile do
   def application do
     [
       applications: [
-        :logger, :pigeon
+        :exredis, :logger, :pigeon
       ]
     ]
   end
@@ -32,6 +32,7 @@ defmodule Pushex.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
+      {:exredis, "~> 0.2"},
       {:pigeon, "~> 0.7"}
     ]
   end
