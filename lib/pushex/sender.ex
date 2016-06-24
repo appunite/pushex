@@ -5,6 +5,10 @@ defmodule Pushex.Sender do
   require Logger
 
   def send(push) do
-    Logger.info push
+    case notification = Pushex.Parser.parse(push) do
+      %Pigeon.APNS.Notification{} -> Pigeon.APNS.push(notification)
+      %Pigeon.GCM.Notification{}  -> Pigeon.GCM.push(notification)
+      _                           -> false
+    end
   end
 end
