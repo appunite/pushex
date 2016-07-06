@@ -21,7 +21,7 @@ defmodule Pushex.Server do
   end
 
   def handle_info(:start, pid) do
-    case Exredis.Api.brpop("list", 1) do
+    case Exredis.Api.brpop("pushr:kingschat-ios:apns", 1) do
       [_, push]   -> send(push)
       :undefined  -> :ok
     end

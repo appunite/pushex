@@ -6,7 +6,7 @@ defmodule Pushex.Sender do
 
   def send(push) do
     case notification = Pushex.Parser.parse(push) do
-      %Pigeon.APNS.Notification{} -> Pigeon.APNS.push(notification)
+      %Pigeon.APNS.Notification{} -> Logger.debug(inspect notification); Pigeon.APNS.push(notification)
       %Pigeon.GCM.Notification{}  -> Pigeon.GCM.push(notification)
       _                           -> false
     end

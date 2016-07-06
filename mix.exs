@@ -10,6 +10,10 @@ defmodule Pushex.Mixfile do
      deps: deps()]
   end
 
+  def escript do
+    [main_module: Pushex]
+  end
+
   # Configuration for the OTP application
   #
   # Type "mix help compile.app" for more information
@@ -33,8 +37,10 @@ defmodule Pushex.Mixfile do
   defp deps do
     [
       {:exredis, "~> 0.2"},
-      {:pigeon, "~> 0.7"},
-      {:poison, "~> 1.5"}
+      {:pigeon, "~> 0.8"},
+      {:poison, "~> 2.0"},
+      {:logger_file_backend, "~> 0.0.8"},
+      {:chatterbox, github: "joedevivo/chatterbox", override: true}
     ]
   end
 end

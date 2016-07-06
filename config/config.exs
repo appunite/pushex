@@ -20,7 +20,7 @@ use Mix.Config
 #
 #     config :logger, level: :info
 #
-config :logger, level: :debug
+config :logger, level: :debug, backends: [:console, {LoggerFileBackend, :debug_log}]
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.
@@ -28,3 +28,13 @@ config :logger, level: :debug
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+
+config :logger, :debug_log,
+  path: "log/debug.log",
+  level: :debug
+
+config :pigeon,
+  gcm_key: "",
+  apns_cert: System.get_env("KC_CERT"),
+  apns_mode: :prod,
+  apns_key: System.get_env("KC_KEY")
