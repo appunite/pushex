@@ -21,8 +21,9 @@ use Mix.Config
 #     config :logger, level: :info
 #
 config :pushex,
-  queue: "pushr:kingschat-ios:apns",
-  bundle_id: "id"
+  ios_queue: "ios_queue",
+  android_queue: "android_queue",
+  bundle_id: "bundle_id"
 
 config :logger, level: :info
 # It is also possible to import configuration files, relative to this
@@ -35,9 +36,9 @@ config :logger, level: :info
 
 config :pigeon,
   gcm_key: "key",
-  apns_certfile: "path",
+  apns_cert: "path",
   apns_mode: :prod,
-  apns_keyfile: "path"
+  apns_key: "path"
 
 config :exredis,
   host: "127.0.0.1",

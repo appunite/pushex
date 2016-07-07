@@ -24,20 +24,27 @@ defmodule Pushex.Parser do
       %{"apns" => %{}}
       |> Map.merge(map["attributes_for_device"])
 
-    Pigeon.APNS.Notification.new(
-      initial_payload, map["device"], Application.get_env(:pushex, :bundle_id)
-    )
-    |> put_alert(map["alert"])
-    |> put_badge(map["badge"])
-    |> put_content_available()
-    |> put_sound(map["sound"])
-    |> put_category(map["category"])
+    n =
+      Pigeon.APNS.Notification.new(
+        initial_payload, map["device"], Application.get_env(:pushex, :bundle_id)
+      )
+      |> put_alert(map["alert"])
+      |> put_badge(map["badge"])
+      |> put_sound(map["sound"])
+      |> put_category(map["category"])
+
+    if map["content_available"] do
+      put_content_available(n)
+    else
+      n
+    end
   end
 
   def prepare_gcm(map) do
     Pigeon.GCM.Notification.new(
-      map["data"],
-      map["registration_ids"]
+      map["registration_ids"],
+      %{},
+      map["data"]
     )
   end
 

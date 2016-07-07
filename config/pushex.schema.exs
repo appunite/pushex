@@ -52,13 +52,21 @@ See the moduledoc for `Conform.Schema.Validator` for more details and examples.
   extends: [],
   import: [],
   mappings: [
-    "pushex.queue": [
+    "pushex.ios_queue": [
       commented: false,
       datatype: :binary,
-      default: "queue",
-      doc: "Redis list name",
+      default: "ios_queue",
+      doc: "Redis list name for ios",
       hidden: false,
-      to: "pushex.queue"
+      to: "pushex.ios_queue"
+    ],
+    "pushex.android_queue": [
+      commented: false,
+      datatype: :binary,
+      default: "android_queue",
+      doc: "Redis list name for android",
+      hidden: false,
+      to: "pushex.android_queue"
     ],
     "pushex.bundle_id": [
       commented: false,
@@ -84,13 +92,13 @@ See the moduledoc for `Conform.Schema.Validator` for more details and examples.
       hidden: false,
       to: "pigeon.gcm_key"
     ],
-    "pigeon.apns_certfile": [
+    "pigeon.apns_cert": [
       commented: false,
       datatype: :binary,
       default: "path",
       doc: "Path to certificate file",
       hidden: false,
-      to: "pigeon.apns_certfile"
+      to: "pigeon.apns_cert"
     ],
     "pigeon.apns_mode": [
       commented: false,
@@ -100,13 +108,13 @@ See the moduledoc for `Conform.Schema.Validator` for more details and examples.
       hidden: false,
       to: "pigeon.apns_mode"
     ],
-    "pigeon.apns_keyfile": [
+    "pigeon.apns_key": [
       commented: false,
       datatype: :binary,
       default: "path",
       doc: "Path to certificate key file",
       hidden: false,
-      to: "pigeon.apns_keyfile"
+      to: "pigeon.apns_key"
     ],
     "exredis.host": [
       commented: false,

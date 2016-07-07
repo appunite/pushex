@@ -10,7 +10,8 @@ defmodule Pushex.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Pushex.Server, [Application.get_env(:pushex, :queue)])
+      worker(Pushex.Server, [Application.get_env(:pushex, :ios_queue), [name: :ios_queue]], id: :ios_queue),
+      worker(Pushex.Server, [Application.get_env(:pushex, :android_queue), [name: :android_queue]], id: :android_queue)
     ]
 
     supervise(children, strategy: :one_for_one)

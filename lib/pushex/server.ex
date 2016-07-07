@@ -5,31 +5,35 @@ defmodule Pushex.Server do
   use GenServer
   require Logger
 
-  def start_link(state, opts \\ []) do
-    GenServer.start_link(__MODULE__, state, name: __MODULE__)
+  def start_link(state, name: name) do
+    GenServer.start_link(__MODULE__, state, name: name)
   end
 
   def init(queue) do
-    Logger.info "Started listening"
+    Logger.info "Started listening on #{queue}"
+    {:ok, redis} = Exredis.start_link
     send(self(), :start)
 
-    {:ok, queue}
+    {:ok, [queue: queue, redis: redis]}
   end
 
   def send(push) do
-    GenServer.cast(__MODULE__, {:send, push})
+    GenServer.cast(self(), {:send, push})
   end
 
-  def handle_info(:start, queue) do
-    IO.puts queue
-    case Exredis.Api.brpop(queue, 1) do
+  def handle_info(:start, [queue: q, redis: r] = state) do
+    case Exredis.Api.brpop(r, q, 1) do
       [_, push]   -> send(push)
       :undefined  -> :ok
     end
 
     send(self(), :start)
 
-    {:noreply, queue}
+    {:noreply, state}
+  end
+
+  def handle_info(_, state) do
+    {:noreply, state}
   end
 
   def handle_cast({:send, push}, state) do
