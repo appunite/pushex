@@ -25,7 +25,7 @@ defmodule Pushex.Parser do
       |> Map.merge(map["attributes_for_device"])
 
     Pigeon.APNS.Notification.new(
-      initial_payload, map["device"], "com.kingschat"
+      initial_payload, map["device"], Application.get_env(:pushex, :bundle_id)
     )
     |> put_alert(map["alert"])
     |> put_badge(map["badge"])

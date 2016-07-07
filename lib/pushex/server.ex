@@ -9,26 +9,27 @@ defmodule Pushex.Server do
     GenServer.start_link(__MODULE__, state, name: __MODULE__)
   end
 
-  def init(_state) do
+  def init(queue) do
     Logger.info "Started listening"
     send(self(), :start)
 
-    {:ok, self()}
+    {:ok, queue}
   end
 
   def send(push) do
     GenServer.cast(__MODULE__, {:send, push})
   end
 
-  def handle_info(:start, pid) do
-    case Exredis.Api.brpop("pushr:kingschat-ios:apns", 1) do
+  def handle_info(:start, queue) do
+    IO.puts queue
+    case Exredis.Api.brpop(queue, 1) do
       [_, push]   -> send(push)
       :undefined  -> :ok
     end
 
     send(self(), :start)
 
-    {:noreply, pid}
+    {:noreply, queue}
   end
 
   def handle_cast({:send, push}, state) do

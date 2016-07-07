@@ -20,7 +20,11 @@ use Mix.Config
 #
 #     config :logger, level: :info
 #
-config :logger, level: :debug, backends: [:console, {LoggerFileBackend, :debug_log}]
+config :pushex,
+  queue: "pushr:kingschat-ios:apns",
+  bundle_id: "id"
+
+config :logger, level: :info
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.
@@ -29,12 +33,16 @@ config :logger, level: :debug, backends: [:console, {LoggerFileBackend, :debug_l
 #
 #     import_config "#{Mix.env}.exs"
 
-config :logger, :debug_log,
-  path: "log/debug.log",
-  level: :debug
-
 config :pigeon,
-  gcm_key: "",
-  apns_cert: System.get_env("KC_CERT"),
+  gcm_key: "key",
+  apns_certfile: "path",
   apns_mode: :prod,
-  apns_key: System.get_env("KC_KEY")
+  apns_keyfile: "path"
+
+config :exredis,
+  host: "127.0.0.1",
+  port: 6379,
+  password: "",
+  db: 0,
+  reconnect: :no_reconnect,
+  max_queue: :infinity

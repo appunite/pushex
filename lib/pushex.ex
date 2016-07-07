@@ -6,6 +6,10 @@ defmodule Pushex do
 
   def start, do: Pushex.Supervisor.start_link
 
-  def main, do: IO.puts("hello")
+  def main(_arg) do
+    start
+
+    :timer.sleep(:infinity)
+  end
 
 end

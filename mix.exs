@@ -7,6 +7,7 @@ defmodule Pushex.Mixfile do
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     escript: escript,
      deps: deps()]
   end
 
@@ -20,7 +21,7 @@ defmodule Pushex.Mixfile do
   def application do
     [
       applications: [
-        :exredis, :logger, :pigeon, :poison
+        :conform, :conform_exrm, :exredis, :exrm, :logger, :pigeon, :poison
       ]
     ]
   end
@@ -40,7 +41,10 @@ defmodule Pushex.Mixfile do
       {:pigeon, "~> 0.8"},
       {:poison, "~> 2.0"},
       {:logger_file_backend, "~> 0.0.8"},
-      {:chatterbox, github: "joedevivo/chatterbox", override: true}
+      {:chatterbox, github: "joedevivo/chatterbox", override: true},
+      {:conform, "~> 2.0"},
+      {:conform_exrm, "~> 1.0"},
+      {:exrm, "~> 1.0"}
     ]
   end
 end

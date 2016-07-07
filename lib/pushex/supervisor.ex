@@ -10,7 +10,7 @@ defmodule Pushex.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Pushex.Server, [:ok])
+      worker(Pushex.Server, [Application.get_env(:pushex, :queue)])
     ]
 
     supervise(children, strategy: :one_for_one)
